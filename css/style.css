@@ -1,0 +1,450 @@
+/* ============================================================
+   CSS Custom Properties — Task 11.1
+   Light theme on :root, dark theme on body.dark
+   ============================================================ */
+:root {
+  --bg:      #ffffff;
+  --surface: #f5f5f5;
+  --text:    #1a1a1a;
+  --accent:  #4f46e5;
+  --danger:  #dc2626;
+  --border:  #e5e7eb;
+  --shadow:  rgba(0, 0, 0, 0.08);
+}
+
+body.dark {
+  --bg:      #0f172a;
+  --surface: #1e293b;
+  --text:    #f1f5f9;
+  --accent:  #818cf8;
+  --danger:  #f87171;
+  --border:  #334155;
+  --shadow:  rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   Reset / Base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  /* prevent horizontal scroll at any viewport width — Task 11.3 */
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   Interactive controls — Task 11.4
+   All buttons, selects, and inputs meet 44×44 touch target
+   ============================================================ */
+button,
+select,
+input {
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+header h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+#theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text);
+  padding: 0 0.5rem;
+}
+
+#theme-toggle:hover {
+  background-color: var(--border);
+}
+
+/* ============================================================
+   Page-level CSS Grid layout — Task 11.2
+   Two-column grid on desktop; collapses to one column ≤599px
+   ============================================================ */
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "balance  balance"
+    "form     list"
+    "chart    chart";
+  gap: 1.25rem;
+  padding: 1.25rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  /* ensure content never forces horizontal scroll — Task 11.3 */
+  width: 100%;
+}
+
+/* ============================================================
+   Section base — Flexbox within sections — Task 11.2
+   ============================================================ */
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px var(--shadow);
+}
+
+/* ============================================================
+   Balance section
+   ============================================================ */
+#balance-section {
+  grid-area: balance;
+  align-items: center;
+}
+
+#balance-display {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+/* ============================================================
+   Form section
+   ============================================================ */
+#form-section {
+  grid-area: form;
+}
+
+#transaction-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#transaction-form input,
+#transaction-form select {
+  flex: 1 1 120px;
+  padding: 0 0.75rem;
+  background-color: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+#transaction-form input:focus,
+#transaction-form select:focus,
+#custom-cat-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+#transaction-form button[type="submit"] {
+  padding: 0 1rem;
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#transaction-form button[type="submit"]:hover {
+  opacity: 0.88;
+}
+
+#custom-category-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#custom-cat-input {
+  flex: 1 1 140px;
+  padding: 0 0.75rem;
+  background-color: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+#custom-cat-btn {
+  padding: 0 0.875rem;
+  background-color: var(--accent);
+  color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#custom-cat-btn:hover {
+  background-color: color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+#form-error,
+#custom-cat-error {
+  font-size: 0.875rem;
+  color: var(--danger);
+  min-height: 1.25rem;
+}
+
+#category-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#category-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.625rem;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+#category-list .cat-name {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+#category-list .cat-edit-input {
+  flex: 1;
+  padding: 0 0.5rem;
+  background-color: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  min-height: 32px;
+}
+
+#category-list .cat-edit-btn,
+#category-list .cat-delete-btn,
+#category-list .cat-save-btn,
+#category-list .cat-cancel-btn {
+  padding: 0 0.5rem;
+  min-width: 44px;
+  min-height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text);
+}
+
+#category-list .cat-edit-btn:hover,
+#category-list .cat-save-btn:hover {
+  background-color: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+#category-list .cat-delete-btn:hover,
+#category-list .cat-cancel-btn:hover {
+  background-color: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+/* ============================================================
+   List section
+   ============================================================ */
+#list-section {
+  grid-area: list;
+}
+
+#sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+#sort-controls label {
+  font-size: 0.875rem;
+  color: var(--text);
+}
+
+#sort-select {
+  flex: 1 1 160px;
+  padding: 0 0.5rem;
+  background-color: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+#transaction-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+/* Each transaction row: name · amount · category · delete */
+#transaction-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  flex-wrap: wrap;
+}
+
+.txn-name {
+  flex: 1 1 100px;
+  font-weight: 500;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.txn-amount {
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.txn-category {
+  font-size: 0.8rem;
+  padding: 0.15rem 0.5rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.delete-btn {
+  margin-left: auto;
+  padding: 0 0.5rem;
+  background: none;
+  border: 1px solid var(--danger);
+  border-radius: 6px;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.delete-btn:hover {
+  background-color: var(--danger);
+  color: #fff;
+}
+
+#empty-list-msg {
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.6;
+  text-align: center;
+}
+
+/* ============================================================
+   Chart section
+   ============================================================ */
+#chart-section {
+  grid-area: chart;
+  align-items: center;
+}
+
+#spending-chart {
+  max-width: 360px;
+  max-height: 360px;
+  width: 100%;
+}
+
+#empty-chart-msg {
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.6;
+  text-align: center;
+}
+
+/* ============================================================
+   Responsive — Task 11.3
+   Single-column layout at ≤599px; no horizontal scroll at 320px
+   ============================================================ */
+@media (max-width: 599px) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "balance"
+      "form"
+      "list"
+      "chart";
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  #transaction-form {
+    flex-direction: column;
+  }
+
+  #transaction-form input,
+  #transaction-form select,
+  #transaction-form button[type="submit"] {
+    width: 100%;
+    flex: none;
+  }
+
+  #custom-category-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #custom-cat-input,
+  #custom-cat-btn {
+    width: 100%;
+  }
+
+  #sort-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #sort-select {
+    width: 100%;
+  }
+
+  #spending-chart {
+    max-width: 100%;
+  }
+}
